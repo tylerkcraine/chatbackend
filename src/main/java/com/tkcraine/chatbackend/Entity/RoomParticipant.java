@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,17 +14,21 @@ import java.util.Set;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class RoomParticipant {
     @Id
-    @Column(name = "part_id")
+    @SequenceGenerator(name="part_id_seq", sequenceName="room_participant_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="part_id_seq")
+    @Column(name = "id")
     private Integer partId;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name="account_id")
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name="room_id")
     private Room room;
 
-    @OneToMany(mappedBy = "roomParticipant")
-    private Set<Message> messages;
+    public RoomParticipant(Account a, Room r) {
+        this.account = a;
+        this.room = r;
+    }
 }
