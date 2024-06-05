@@ -1,4 +1,6 @@
-package com.tkcraine.chatbackend.Entity;
+package com.tkcraine.chatbackend.entity;
+
+import java.time.OffsetDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,11 +29,16 @@ public class Message {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "part_id")
-    private Integer partId;
-
     @ManyToOne
-    @JoinColumn(name = "part_id", insertable=false, updatable=false)
+    @JoinColumn(name = "part_id", nullable = false)
     private RoomParticipant roomParticipant;
 
+    @Column(name = "posted_time",  columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
+    OffsetDateTime offsetTime;
+
+    public Message(RoomParticipant part, String content, OffsetDateTime time) {
+        this.roomParticipant = part;
+        this.content = content;
+        this.offsetTime = time;
+    }
 }

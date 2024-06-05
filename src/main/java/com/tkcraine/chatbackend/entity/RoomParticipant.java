@@ -1,4 +1,4 @@
-package com.tkcraine.chatbackend.Entity;
+package com.tkcraine.chatbackend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
-@Table(name="room_participant")
+@Table(name="room_participant",
+        uniqueConstraints = @UniqueConstraint(
+            columnNames = {"account_id", "room_id"}
+        )
+)
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class RoomParticipant {
     @Id
@@ -20,11 +21,11 @@ public class RoomParticipant {
     private Integer partId;
 
     @ManyToOne
-    @JoinColumn(name="account_id")
+    @JoinColumn(name="account_id", nullable = true)
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name="room_id")
+    @JoinColumn(name="room_id", nullable = false)
     private Room room;
 
     public RoomParticipant(Account a, Room r) {

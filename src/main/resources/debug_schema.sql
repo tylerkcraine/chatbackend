@@ -6,8 +6,10 @@ CREATE TABLE IF NOT EXISTS chatapp.account
 (
     id bigserial NOT NULL,
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(255) COLLATE pg_catalog."default" UNIQUE NOT NULL,
-    CONSTRAINT account_pkey PRIMARY KEY (id)
+    type character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    external_id int pg_catalog."default" NOT NULL,
+    CONSTRAINT account_pkey PRIMARY KEY (id),
+    CONSTRAINT external_unique UNIQUE (type, external_id)
 )
 
 TABLESPACE pg_default;
@@ -45,7 +47,7 @@ CREATE TABLE IF NOT EXISTS chatapp.room_participant
         REFERENCES chatapp.room (id) MATCH SIMPLE
         ON UPDATE CASCADE
         ON DELETE CASCADE,
-    CONSTRAINt room_combo_unique UNIQUE(account_id, room_id)
+    CONSTRAINT room_combo_unique UNIQUE(account_id, room_id)
 )
 
 TABLESPACE pg_default;
@@ -60,6 +62,7 @@ CREATE TABLE IF NOT EXISTS chatapp.message
     id bigserial NOT NULL,
     content character varying(4096) COLLATE pg_catalog."default" NOT NULL,
     part_id bigint NOT NULL,
+    posted_time TIMESTAMP WITH TIME ZONE NOT NULL,
     CONSTRAINT message_pkey PRIMARY KEY (id),
     CONSTRAINT part_ref FOREIGN KEY (part_id)
         REFERENCES chatapp.room_participant (id) MATCH SIMPLE
@@ -71,3 +74,8 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS chatapp.message
     OWNER to debug;
+
+TRUNCATE TABLE account CASCADE;
+TRUNCATE TABLE message CASCADE;
+TRUNCATE TABLE room_participant CASCADE;
+TRUNCATE TABLE room CASCADE;

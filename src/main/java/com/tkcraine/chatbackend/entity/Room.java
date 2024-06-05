@@ -1,4 +1,4 @@
-package com.tkcraine.chatbackend.Entity;
+package com.tkcraine.chatbackend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ public class Room {
     @Id
     @SequenceGenerator(name="room_id_seq", sequenceName="room_id_seq", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="room_id_seq")
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name="name", nullable = false)

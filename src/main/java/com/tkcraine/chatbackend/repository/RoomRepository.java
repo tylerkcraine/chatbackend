@@ -1,11 +1,10 @@
-package com.tkcraine.chatbackend.Repository;
+package com.tkcraine.chatbackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.tkcraine.chatbackend.Entity.Room;
+import com.tkcraine.chatbackend.entity.Room;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer>{
-    
 }

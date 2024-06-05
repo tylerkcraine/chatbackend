@@ -5,8 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.jdbc.Sql;
-import com.tkcraine.chatbackend.Service.AccountService;
-import com.tkcraine.chatbackend.Entity.Account;
+
+import com.tkcraine.chatbackend.entity.Account;
+import com.tkcraine.chatbackend.service.AccountService;
 import com.tkcraine.chatbackend.ChatbackendApplication;
 import org.springframework.boot.SpringApplication;
 

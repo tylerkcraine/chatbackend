@@ -1,13 +1,9 @@
-package com.tkcraine.chatbackend.Service;
-
-import java.util.Set;
+package com.tkcraine.chatbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tkcraine.chatbackend.Entity.Account;
-import com.tkcraine.chatbackend.Entity.RoomParticipant;
-import com.tkcraine.chatbackend.Repository.AccountRepository;
+import com.tkcraine.chatbackend.repository.AccountRepository;
 
 @Service
 public class AccountService {

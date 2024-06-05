@@ -1,16 +1,18 @@
 package com.tkcraine.chatbackend;
 
+import java.time.OffsetDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.tkcraine.chatbackend.Entity.*;
-import com.tkcraine.chatbackend.Repository.*;
-import com.tkcraine.chatbackend.Service.AccountService;
+import com.tkcraine.chatbackend.entity.*;
+import com.tkcraine.chatbackend.repository.*;
+
+import jakarta.transaction.Transactional;
 
 @Component
 public class AccountServiceRunner implements CommandLineRunner{
@@ -21,38 +23,28 @@ public class AccountServiceRunner implements CommandLineRunner{
     private RoomRepository rr;
 
     @Autowired
-    private RoomParticipantRepository cc;
+    private RoomParticipantRepository rpr;
 
     @Autowired
-    private AccountService as;
+    private MessageRepository mr;
+
 
     @Override
+    @Transactional
     public void run(String... strings) throws Exception {
-        ar.deleteAll();
+        
+        // Account account1 = new Account("tkcraine", "tkcraine@gmail.com");
+        // Account account2 = new Account("rbronstien", "rbronstien@gmail.com");
+        // Account account3 = new Account("cclay", "azureDragon@gmail.com");
 
-        Account ac1 = new Account("tkcraine", "tkcraine@gmail.com");
-        Account ac2 = new Account("rbronstien", "rbron@gmail.com");
-        Account ac3 = new Account("cyzu", "azureBlue@gmail.com");
+        // for (Account a : Arrays.asList(account1, account2, account3)) {
+        //     if (ar.findByEmail(a.getEmail()) == null) {
+        //         ar.saveAndFlush(a);
+        //     } else {
+        //         a = ar.findByEmail(a.getEmail());
+        //     }
+        // }
 
-        ar.saveAllAndFlush(Arrays.asList(ac1, ac2, ac3));
-
-        rr.deleteAll();
-
-        Room rc1 = new Room("Chuckle Hut");
-        Room rc2 = new Room("Bad Ping");
-        Room rc3 = new Room("Talon Diff???");
-
-        rr.saveAllAndFlush(Arrays.asList(rc1,rc2,rc3));
-
-        RoomParticipant rp1 = new RoomParticipant(ac1, rc1);
-        RoomParticipant rp2 = new RoomParticipant(ac2, rc1);
-        RoomParticipant rp3 = new RoomParticipant(ac3, rc1);
-
-        cc.saveAllAndFlush(Arrays.asList(rp1,rp2,rp3));
-
-        Set<RoomParticipant> thing = cc.findAllByRoomName(rc1.getName());
-        for (RoomParticipant i : thing) {
-            System.out.println(i.getAccount().getName());
-        }
+        // Room
     } 
 }
